@@ -24,12 +24,12 @@
  * 
  */
 
- #include <ctype.h>
- #include <string.h>
- #include <stddef.h>
- #include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+#include <stddef.h>
+#include <stdlib.h>
 
- #include "eval.h"
+#include "eval.h"
 
 /**
  * @brief Evaluate array of operands/operators

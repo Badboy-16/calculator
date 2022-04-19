@@ -24,6 +24,13 @@
  * 
  */
 
+ #include <ctype.h>
+ #include <string.h>
+ #include <stddef.h>
+ #include <stdlib.h>
+
+ #include "eval.h"
+
 /**
  * @brief Do calculation on given two operands and one operator
  * 
@@ -42,5 +49,56 @@ double operate(double op1, double op2, char operator) {
             return op1 * op2;
         case '/':
             return op1 / op2;
+    }
+}
+
+/**
+ * @brief Parse calculation expression and store in array of pointers parsed
+ * 
+ * @param parsed array of strings of operands/operators/parenthese
+ * @param inputstr Calculation expression in string
+ * @return void
+ */
+void parse(char *parsed[], char *inputstr) {
+    char op[MAXLEN];
+    int parsedindex = 0;
+    int opindex = 0;
+
+    while (1) {
+        if (isoperator(*inputstr) || *inputstr == '\0') {
+            if (opindex > 0) {
+                op[opindex] = '\0';
+                parsed[parsedindex] = (char *) malloc(strlen(op)+1);
+                strcpy(parsed[parsedindex], op);
+                parsedindex++;
+                opindex = 0;
+            }
+            if (*inputstr == '\0') {
+                break;
+            }
+            op[0] = *inputstr;
+            op[1] = '\0';
+            parsed[parsedindex] = (char *) malloc(strlen(op)+1);
+            strcpy(parsed[parsedindex], op);
+            parsedindex++;
+            inputstr++;
+        } else if (*inputstr == '.' || isdigit(*inputstr)) {
+            op[opindex++] = *inputstr++;
+        }
+    }
+    parsed[parsedindex] = NULL;
+}
+
+/**
+ * @brief Test if character c is an operator
+ * 
+ * @param c character to be tested
+ * @return int 1 if c is an operator, otherwise 0
+ */
+int isoperator(char c) {
+    if (c == '+' || c == '-' || c == '*' || c == '/' || c == '(' || c == ')') {
+        return 1;
+    } else {
+        return 0;
     }
 }

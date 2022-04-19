@@ -96,9 +96,5 @@ void parse(char *parsed[], char *inputstr) {
  * @return int 1 if c is an operator, otherwise 0
  */
 int isoperator(char c) {
-    if (c == '+' || c == '-' || c == '*' || c == '/') {
-        return 1;
-    } else {
-        return 0;
-    }
+    return (c == '+' || c == '-' || c == '*' || c == '/');
 }

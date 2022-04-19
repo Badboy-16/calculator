@@ -32,6 +32,22 @@
  #include "eval.h"
 
 /**
+ * @brief Evaluate array of operands/operators
+ * 
+ * @param parsed array of operands/operators strings
+ * @return double Result of calculation
+ */
+double eval(char *parsed[]) {
+    double result = atof(parsed[0]);
+
+    for (int i = 1; parsed[i]; i += 2) {
+        result = operate(result, atof(parsed[i+1]), *parsed[i]);
+    }
+
+    return result;
+}
+
+/**
  * @brief Do calculation on given two operands and one operator
  * 
  * @param op1 First operand

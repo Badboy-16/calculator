@@ -1,4 +1,5 @@
 calculator: main.o eval.o
+	mkdir build
 	gcc -o build/calculator src/main.o src/eval.o
 	rm src/main.o src/eval.o
 
